@@ -4,9 +4,17 @@ import Button, { Props } from './styled/Button';
 import Spinner from './styled/Spinner';
 
 const ThisButton = styled(Button)`
-    padding: 1.75rem 0.875rem;
+    padding: 0.375rem;
     width: 100%;
     display: block;
+
+    span {
+        display: inline-block;
+
+        &::before {
+            margin-left: -8px;
+        }
+    }
 `;
 
 const ButtonLoading: React.FC<Props> = (props) => (
