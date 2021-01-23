@@ -1,6 +1,7 @@
 import { useQuery } from 'urql';
 
 import Header from '@src/components/common/Header';
+import ViewLoading from '@src/components/common/ViewLoading';
 import Seo from '@src/components/Seo';
 import Container from '@src/components/styled/Container';
 import withToken from '@src/components/withToken';
@@ -27,16 +28,22 @@ const AdminTemplate: React.FC = () => {
             <Seo title="Administración" />
             <Header />
             <main>
-                <Wrapper>
-                    <Container>
-                        <Welcome>
-                            Bienvenido {result.data?.user.username}
-                        </Welcome>
-                        {myFormsResult.data?.getMyForms && (
-                            <FormsList forms={myFormsResult.data.getMyForms} />
-                        )}
-                    </Container>
-                </Wrapper>
+                {result.fetching && <ViewLoading fullPage />}
+                {result.data?.user && (
+                    <Wrapper>
+                        <Container>
+                            <Welcome>
+                                Bienvenido {result.data?.user.username}
+                            </Welcome>
+                            {myFormsResult.fetching && <ViewLoading />}
+                            {myFormsResult.data?.getMyForms && (
+                                <FormsList
+                                    forms={myFormsResult.data.getMyForms}
+                                />
+                            )}
+                        </Container>
+                    </Wrapper>
+                )}
             </main>
         </>
     );
