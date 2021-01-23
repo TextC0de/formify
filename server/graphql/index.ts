@@ -4,7 +4,7 @@ import schema from './schema';
 
 const graphql = graphqlHTTP(async (request: any) => ({
     schema,
-    graphiql: true,
+    graphiql: process.env.NODE_ENV === 'production' ? false : true,
     context: {
         user: request.user,
         headers: request.headers,
