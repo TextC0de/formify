@@ -7,6 +7,7 @@ App de encuestas utilizando:
 -   MongoDB
 -   Graphql
 -   Typescript
+-   Redis
 
 ## Project setup
 
