@@ -21,7 +21,7 @@ export const Slide = styled.div`
     display: flex;
     align-items: center;
     height: 100%;
-    margin: 1rem 0.225rem;
+    margin: 1rem 0;
     .react-datepicker-popper {
         transform: translate3d(0px, 25%, 0px) !important;
     }
