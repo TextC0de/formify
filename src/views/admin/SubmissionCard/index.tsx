@@ -58,12 +58,14 @@ const SubmissionCard: React.FC<Props & LiHTMLAttributes<HTMLLIElement>> = ({
                         submissionField && field._id === submissionField.field
                 )?.fieldValue;
 
-                if (field.type === 'date') {
-                    value = formatDate(value);
-                }
+                if (value) {
+                    if (field.type === 'date') {
+                        value = formatDate(value);
+                    }
 
-                if (field.type === 'check') {
-                    value = value.join(', ');
+                    if (field.type === 'check') {
+                        value = value.join(', ');
+                    }
                 }
 
                 return (
