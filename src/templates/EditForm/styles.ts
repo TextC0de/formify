@@ -16,6 +16,10 @@ export const Field = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 720px) {
+        flex-direction: column;
+    }
 `;
 
 export const FieldHeader = styled.div`
@@ -34,12 +38,25 @@ export const FieldHeader = styled.div`
 export const EditableView = styled.div`
     flex: 0 50%;
     padding: 0 1.5rem 0 0;
+
+    @media (max-width: 720px) {
+        padding: 0;
+        flex: 0 100%;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
 `;
 
 export const PreviewView = styled.div`
     border-left: 2px solid #777;
     flex: 0 50%;
     padding: 0 0 0 1.5rem;
+
+    @media (max-width: 720px) {
+        padding: 0;
+        flex: 0 100%;
+        border: 0;
+    }
 `;
 
 export const FieldDivider = styled.span`

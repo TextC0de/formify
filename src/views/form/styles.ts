@@ -5,6 +5,10 @@ import { textPalette } from '@src/utils/styled';
 
 export const Wrapper = styled.div`
     width: 75%;
+
+    @media (max-width: 720px) {
+        width: 100%;
+    }
 `;
 
 export const Header = styled.header`
@@ -14,6 +18,7 @@ export const Header = styled.header`
 export const Title = styled.h4`
     color: ${textPalette('primary')};
     font-size: 1.5rem;
+    line-break: anywhere;
 `;
 
 export const Description = styled.p`

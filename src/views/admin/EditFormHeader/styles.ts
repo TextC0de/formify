@@ -9,6 +9,7 @@ export const Logo = styled.a`
     font-size: 1rem;
     font-weight: 600;
     color: ${palette('primary', 'main')};
+    text-align: center;
 
     &:hover {
         color: ${({ theme }) =>

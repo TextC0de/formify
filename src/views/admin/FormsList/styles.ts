@@ -21,6 +21,21 @@ export const Row = styled.ul`
             flex: 0 25%;
         }
     }
+
+    @media (max-width: 720px) {
+        flex-wrap: wrap;
+        li {
+            flex: 0 calc(50% - 1rem);
+            margin-right: 1rem;
+            margin-top: 0.375rem;
+            margin-bottom: 0.375rem;
+
+            &:nth-child(1) {
+                flex: 0 calc(50% - 1rem);
+                margin-right: 1rem;
+            }
+        }
+    }
 `;
 
 export const Item = styled.li`
@@ -35,6 +50,7 @@ export const Item = styled.li`
     padding: 0.875rem;
     transition: 0.3s ease-in-out;
     cursor: pointer;
+    text-align: center;
 
     &:hover {
         background: rgba(0, 0, 0, 0.05);
