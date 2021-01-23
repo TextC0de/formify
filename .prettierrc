@@ -1,0 +1,10 @@
+{
+  "endOfLine": "auto",
+  "trailingComma": "none",
+  "semi": true,
+  "useTabs": false,
+  "singleQuote": true,
+  "tabWidth": 4,
+  "printWidth": 80,
+  "plugins": ["prettier-plugin-sorted"]
+}

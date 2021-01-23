@@ -1,0 +1,38 @@
+name: CI
+on:
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
+jobs:
+    prettier:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
+            - name: Prettify code
+              uses: creyD/prettier_action@v3.1
+              with:
+                  prettier_options: --write **/*.{ts,tsx}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - uses: actions/cache@v2
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+            - name: Setup npm
+              run: npm install
+            - name: run lint app
+              run: |
+                  npm install
+                  npm run lint:app
+                  npm run build

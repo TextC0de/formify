@@ -1,0 +1,9 @@
+.next
+.vscode
+.eslintrc.js
+.stylelintrc
+coverage
+node_modules
+public
+package.json
+package-lock.json
