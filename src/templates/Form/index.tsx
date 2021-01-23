@@ -119,6 +119,12 @@ const FormTemplate: NextPage = () => {
         });
     };
 
+    const goPrev = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slidePrev();
+        }
+    };
+
     const goNext = () => {
         if (swiperRef.current && swiperRef.current.swiper) {
             if (
@@ -202,6 +208,7 @@ const FormTemplate: NextPage = () => {
                                                               .fieldValue
                                                         : undefined
                                                 }
+                                                goPrev={goPrev}
                                                 onEnter={goNext}
                                             />
                                         </Slide>

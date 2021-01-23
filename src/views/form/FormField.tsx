@@ -21,12 +21,14 @@ type Props = {
     field: Omit<FormFieldData, '_id'> | undefined;
     name?: string;
     onEnter?: () => void;
+    goPrev?: () => void;
     value?: any;
     addToast?: AddToast;
 };
 
 const FormField: React.FC<Props> = ({
     addToast,
+    goPrev,
     value,
     name,
     field,
@@ -47,6 +49,11 @@ const FormField: React.FC<Props> = ({
             addToast('El valor del campo no es correcto', {
                 appearance: 'error'
             });
+    };
+
+    const onPrevClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        goPrev();
     };
 
     return field ? (
@@ -77,7 +84,7 @@ const FormField: React.FC<Props> = ({
             </Field>
             {name && (
                 <Buttons>
-                    <PrevButton onClick={onEnter ? onOkClick : undefined}>
+                    <PrevButton onClick={goPrev ? onPrevClick : undefined}>
                         Anterior
                     </PrevButton>
                     <OkButton onClick={onEnter ? onOkClick : undefined}>
