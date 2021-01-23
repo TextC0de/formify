@@ -17,7 +17,7 @@
     "lint:fix:app": "eslint src/**/*.ts{,x} --fix",
     "lint:fix:server": "eslint server/**/*.ts --fix",
     "lint:fix": "npm run lint:fix:app && npm run lint:fix:server",
-    "start:app": "next start",
+    "start:app": "next start -p 3019",
     "start:server": "node ./dist/server/index.js"
   },
   "keywords": [],
