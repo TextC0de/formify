@@ -57,6 +57,7 @@ const FormSubmissionsTemplate: NextPage = () => {
         FormQueryData,
         FormQueryVariables
     >({
+        requestPolicy: 'network-only'
         pause: typeof router.query.id === undefined,
         query: FORM_QUERY,
         variables: {
@@ -66,7 +67,7 @@ const FormSubmissionsTemplate: NextPage = () => {
 
     useEffect(() => {
         reexecuteQuery({ requestPolicy: 'network-only' });
-        reexecuteFormQuery();
+        reexecuteFormQuery({ requestPolicy: 'network-only' });
     }, [router.query.id]);
 
     const submissions = result.data?.getSubmissions;
