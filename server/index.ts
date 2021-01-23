@@ -4,13 +4,14 @@ require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 // require('module-alias').addAlias('@app', `${__dirname}/`);
 import './mongoose';
 import './redis';
-import './service/logger';
 
 import cors from 'cors';
 import express from 'express';
 
 import graphql from './graphql';
 import authentication from './middleware/autentication';
+
+// import './service/logger';
 
 const app = express();
 
