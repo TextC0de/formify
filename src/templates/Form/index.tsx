@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
@@ -12,7 +13,7 @@ import ViewLoading from '@src/components/common/ViewLoading';
 import Seo from '@src/components/Seo';
 import Container from '@src/components/styled/Container';
 import Heading from '@src/components/styled/Heading';
-import SwiperCustom, { SwiperRefType } from '@src/components/SwiperCustom';
+import type { SwiperRefType } from '@src/components/SwiperCustom';
 import {
     CREATE_SUBMISSION_MUTATION,
     CreateSubmissionData,
@@ -28,6 +29,11 @@ import { getFormWasSubmited, setFormAsSubmited } from '@src/utils/form';
 import FormField from '@src/views/form/FormField';
 
 import { Slide, StartEndSlide, StartEndTitle, Wrapper } from './styles';
+
+const SwiperCustom = dynamic(() => import('@src/components/SwiperCustom'), {
+    loading: () => <ViewLoading />,
+    ssr: false
+});
 
 type FormInput = {
     fields: { field: string; fieldValue: string }[];

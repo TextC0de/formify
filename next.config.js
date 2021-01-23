@@ -29,7 +29,7 @@ module.exports = withPlugins([
         NEXT_PUBLIC_HOST: isDev
             ? 'http://localhost:3000'
             : 'https://textcode.me/formify',
-        NEXT_PUBLIC_ANALYITICS_ID: isDev ? '' : ''
+        NEXT_PUBLIC_ANALYITICS_ID: isDev ? '' : 'UA-98491944-6'
     },
     images: {
         domains: ['textcode.me']

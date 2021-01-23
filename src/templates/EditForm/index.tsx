@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
-import { fieldType } from 'shared/fields';
+import type { fieldType } from 'shared/fields';
 import { useMutation, useQuery } from 'urql';
 
 import Header from '@src/components/common/Header';
