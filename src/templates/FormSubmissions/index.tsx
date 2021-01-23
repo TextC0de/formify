@@ -70,6 +70,32 @@ const FormSubmissionsTemplate: NextPage = () => {
         reexecuteFormQuery({ requestPolicy: 'network-only' });
     }, [router.query.id]);
 
+    const getOptionsSortedByNOfSelections = (
+        fieldId: string,
+        options: string[]
+    ): {
+        option: string;
+        total: number;
+    }[] => {
+        if (!submissions) return [];
+        const submissionsOfField = submissions.map((submission) =>
+            submission.fields.find(
+                ({ field }) => field.toString() === fieldId.toString()
+            )
+        );
+
+        const optionsWithNoSelections = options.map((option) => ({
+            option,
+            total: submissionsOfField.filter((submission) =>
+                submission?.fieldValue.includes(option)
+            ).length
+        }));
+
+        return optionsWithNoSelections.sort((a, b) =>
+            a.total > b.total ? 0 : 1
+        );
+    };
+
     const submissions = result.data?.getSubmissions;
     const form = formResult.data?.getForm;
 
@@ -126,11 +152,88 @@ const FormSubmissionsTemplate: NextPage = () => {
                         </Container>
                     </FormSubmissionsHeader>
 
-                    <section
-                        style={{ padding: '3rem 0', background: '#f7f7f7' }}
-                    >
+                    {form.fields.some((field) => field.type === 'check') && (
+                        <section
+                            style={{ padding: '3rem 0', background: '#f7f7f7' }}
+                        >
+                            <Container>
+                                <Heading>
+                                    Resumen campos de selección multiple
+                                </Heading>
+                                {submissions && submissions.length > 0 ? (
+                                    form.fields
+                                        .filter(
+                                            (field) => field.type === 'check'
+                                        )
+                                        .map((field) => {
+                                            if (!field.options) return null;
+                                            const sortedOptions = getOptionsSortedByNOfSelections(
+                                                field._id,
+                                                field.options.map(
+                                                    ({ value }) => value
+                                                )
+                                            );
+
+                                            return (
+                                                <div
+                                                    key={field._id}
+                                                    style={{
+                                                        marginBottom: '.5rem'
+                                                    }}
+                                                >
+                                                    <h4
+                                                        style={{
+                                                            textTransform:
+                                                                'uppercase',
+                                                            fontSize:
+                                                                '0.875rem',
+                                                            marginBottom:
+                                                                '0.125rem'
+                                                        }}
+                                                    >
+                                                        {field.title}
+                                                    </h4>
+                                                    {sortedOptions.map(
+                                                        (option) => (
+                                                            <p
+                                                                key={
+                                                                    option.option
+                                                                }
+                                                                style={{
+                                                                    marginBottom:
+                                                                        '.125rem'
+                                                                }}
+                                                            >
+                                                                <span
+                                                                    style={{
+                                                                        color:
+                                                                            '#212121'
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        option.option
+                                                                    }
+                                                                    :
+                                                                </span>{' '}
+                                                                {option.total}
+                                                            </p>
+                                                        )
+                                                    )}
+                                                </div>
+                                            );
+                                        })
+                                ) : (
+                                    <P>
+                                        Aquí apareceran las opciones ordenas
+                                        según su cantidad de selecciones
+                                    </P>
+                                )}
+                            </Container>
+                        </section>
+                    )}
+                    <section style={{ padding: '3rem 0' }}>
                         <Container>
-                            <Heading>Respuestas</Heading>
+                            <Heading>Respuestas individuales</Heading>
                             <SubmissionsList>
                                 {submissions.length === 0 ? (
                                     <P>Aquí aparecerán las respuestas</P>
