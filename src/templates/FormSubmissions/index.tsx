@@ -146,7 +146,12 @@ const FormSubmissionsTemplate: NextPage = () => {
                                     <StatContent>
                                         {submissions?.length}
                                     </StatContent>
-                                    <StatTitle>Respuestas</StatTitle>
+                                    <StatTitle>
+                                        Respuesta
+                                        {submissions?.length === 1
+                                            ? undefined
+                                            : 's'}
+                                    </StatTitle>
                                 </Stat>
                             </Stats>
                         </Container>
