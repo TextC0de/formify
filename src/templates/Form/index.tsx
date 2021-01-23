@@ -150,6 +150,7 @@ const FormTemplate: NextPage = () => {
     };
 
     const HorizontalSwiperParams = {
+        spaceBetween: 30,
         on: {
             slideChange: (swiper: SwiperInstance): void => {
                 if (swiper === null) return;
