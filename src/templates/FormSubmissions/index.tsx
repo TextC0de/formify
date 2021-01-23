@@ -57,7 +57,7 @@ const FormSubmissionsTemplate: NextPage = () => {
         FormQueryData,
         FormQueryVariables
     >({
-        requestPolicy: 'network-only'
+        requestPolicy: 'network-only',
         pause: typeof router.query.id === undefined,
         query: FORM_QUERY,
         variables: {
