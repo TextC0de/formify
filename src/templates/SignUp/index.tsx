@@ -50,9 +50,15 @@ const SignUpTemplate: NextPage = () => {
     const onSubmit = (data: Inputs) => {
         signup(data).then((result) => {
             if (result.error) {
-                addToast('Ha habido un error al crear tu cuenta', {
-                    appearance: 'error'
-                });
+                addToast(
+                    result.error.message.toString() ===
+                        '[GraphQL] Username has already been taken.'
+                        ? 'El nombre de usuario ya se encuentra ocupado'
+                        : 'Ha habido un error al crear tu cuenta',
+                    {
+                        appearance: 'error'
+                    }
+                );
             } else {
                 setToken(result.data?.signup.accessToken);
                 router.push('/admin');
