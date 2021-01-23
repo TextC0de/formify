@@ -81,7 +81,7 @@ const FormSubmissionsTemplate: NextPage = () => {
                 <ViewLoading fullPage />
             )}
 
-            {(result.error || formResult.error) && <ViewError fullPage />}
+            {formResult.error && <ViewError fullPage />}
 
             {!form?.isLive && (
                 <>

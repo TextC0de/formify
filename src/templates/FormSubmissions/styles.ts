@@ -9,6 +9,7 @@ export const FormLink = styled(Card)`
     transition: 0.3s ease-in-out;
     font-size: 0.8rem;
     cursor: pointer;
+    overflow: hidden;
 
     &:hover {
         background: #f7f7f7;

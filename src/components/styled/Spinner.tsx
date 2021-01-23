@@ -23,9 +23,9 @@ const Spinner = styled.span<Props>`
         height: ${(props): string =>
             props.size !== undefined ? `${props.size}px` : '16px'};
         margin-top: ${(props): string =>
-            props.size !== undefined ? `-${props.size / 2}px` : '-8px'};
+            props.size !== undefined ? `${props.size / 2}px` : '8px'};
         margin-left: ${(props): string =>
-            props.size !== undefined ? `-${props.size / 2}px` : '-8px'};
+            props.size !== undefined ? `${props.size / 2}px` : '8px'};
         border-radius: 50%;
         border-top-color: transparent;
         border: 2px solid

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
 
 import Button from '@src/components/styled/Button';
+import Container from '@src/components/styled/Container';
 import Heading from '@src/components/styled/Heading';
 
 type WrapperProps = {
@@ -9,17 +10,19 @@ type WrapperProps = {
 };
 
 const Wrapper = styled.div<WrapperProps>`
-    ${({ fullPage }): FlattenSimpleInterpolation | undefined =>
-        fullPage
-            ? css`
-                  min-height: 100vh;
-              `
-            : undefined}
-    padding: 3rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    ${Container} {
+        ${({ fullPage }): FlattenSimpleInterpolation | undefined =>
+            fullPage
+                ? css`
+                      min-height: 100vh;
+                  `
+                : undefined}
+        padding: 3rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
     ${Button} {
         margin-top: 1.5rem;
@@ -43,13 +46,15 @@ const ViewError: React.FC<Props> = ({
     buttonHref
 }) => (
     <Wrapper fullPage={fullPage === true}>
-        <Heading>{title}</Heading>
-        <Description>{description}</Description>
-        {buttonHref ? (
-            <Link href={buttonHref} passHref>
-                <Button as="a">{buttonText}</Button>
-            </Link>
-        ) : null}
+        <Container>
+            <Heading>{title}</Heading>
+            <Description>{description}</Description>
+            {buttonHref ? (
+                <Link href={buttonHref} passHref>
+                    <Button as="a">{buttonText}</Button>
+                </Link>
+            ) : null}
+        </Container>
     </Wrapper>
 );
 
