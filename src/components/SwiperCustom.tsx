@@ -22,6 +22,7 @@ const SwiperCustom: React.FC<Props> = ({
 }) => {
     const params = {
         Swiper,
+        allowTouchMove: false,
         modules: [],
         noSwiping: true,
         ...customParams
