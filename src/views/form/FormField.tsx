@@ -53,7 +53,7 @@ const FormField: React.FC<Props> = ({
 
     const onPrevClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        goPrev();
+        if (goPrev) goPrev();
     };
 
     return field ? (
