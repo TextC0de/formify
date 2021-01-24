@@ -32,8 +32,7 @@ export const FormSchema = new Schema(
             trim: true,
             type: String,
             required: true,
-            maxlength: 30,
-            unique: true
+            maxlength: 30
         },
         created: {
             type: Date
