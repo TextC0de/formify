@@ -16,11 +16,13 @@ import { Welcome, Wrapper } from './styles';
 
 const AdminTemplate: React.FC = () => {
     const [result] = useQuery<MeQueryData>({
-        query: ME_QUERY
+        query: ME_QUERY,
+        requestPolicy: 'network-only'
     });
 
     const [myFormsResult] = useQuery<MyFormsQueryData>({
-        query: MY_FORMS_QUERY
+        query: MY_FORMS_QUERY,
+        requestPolicy: 'network-only'
     });
 
     return (
