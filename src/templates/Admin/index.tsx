@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { useQuery } from 'urql';
 
 import Header from '@src/components/common/Header';
@@ -12,32 +11,19 @@ import {
     MyFormsQueryData
 } from '@src/graphql/query/myForms.query';
 import { ME_QUERY, MeQueryData } from '@src/graphql/query/user.query';
-import { deleteToken } from '@src/utils/auth';
 import FormsList from '@src/views/admin/FormsList';
 
 import { Welcome, Wrapper } from './styles';
 
 const AdminTemplate: React.FC = () => {
-    const router = useRouter();
-
     const [result] = useQuery<MeQueryData>({
-        query: ME_QUERY,
-        requestPolicy: 'network-only'
+        query: ME_QUERY
     });
 
     const [myFormsResult] = useQuery<MyFormsQueryData>({
         query: MY_FORMS_QUERY,
         requestPolicy: 'network-only'
     });
-
-    if (
-        myFormsResult.error &&
-        myFormsResult.error.message === 'You must be authorized.'
-    ) {
-        deleteToken();
-        router.push('/login');
-        return <ViewLoading />;
-    }
 
     return (
         <>
