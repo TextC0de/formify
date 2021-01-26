@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import { useQuery } from 'urql';
 
 import Header from '@src/components/common/Header';
+import ViewError from '@src/components/common/ViewError';
 import ViewLoading from '@src/components/common/ViewLoading';
 import Seo from '@src/components/Seo';
 import Container from '@src/components/styled/Container';
@@ -10,11 +12,14 @@ import {
     MyFormsQueryData
 } from '@src/graphql/query/myForms.query';
 import { ME_QUERY, MeQueryData } from '@src/graphql/query/user.query';
+import { deleteToken } from '@src/utils/auth';
 import FormsList from '@src/views/admin/FormsList';
 
 import { Welcome, Wrapper } from './styles';
 
 const AdminTemplate: React.FC = () => {
+    const router = useRouter();
+
     const [result] = useQuery<MeQueryData>({
         query: ME_QUERY,
         requestPolicy: 'network-only'
@@ -25,10 +30,21 @@ const AdminTemplate: React.FC = () => {
         requestPolicy: 'network-only'
     });
 
+    if (
+        myFormsResult.error &&
+        myFormsResult.error.message === 'You must be authorized.'
+    ) {
+        deleteToken();
+        router.push('/login');
+        return <ViewLoading />;
+    }
+
     return (
         <>
             <Seo title="Administración" />
             <Header />
+            {(result.fetching || myFormsResult.error) && <ViewError fullPage />}
+            {(result.error || myFormsResult.error) && <ViewError fullPage />}
             <main>
                 {result.fetching && <ViewLoading fullPage />}
                 {result.data?.user && (
