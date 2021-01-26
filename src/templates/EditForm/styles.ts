@@ -24,14 +24,25 @@ export const Field = styled.div`
 
 export const FieldHeader = styled.div`
     display: flex;
+`;
+
+export const FieldIcons = styled.div`
+    margin-left: auto;
 
     svg {
+        width: 1.5rem;
         cursor: pointer;
     }
 
+    .IconArrowChevron {
+        width: 0.875rem;
+        height: auto;
+        margin: 0 0.875rem;
+        padding: 0.125rem;
+    }
+
     svg:hover {
-        filter: invert(23%) sepia(91%) saturate(6858%) hue-rotate(3deg)
-            brightness(97%) contrast(103%);
+        filter: invert(75%);
     }
 `;
 

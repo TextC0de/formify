@@ -10,6 +10,7 @@ import Header from '@src/components/common/Header';
 import ViewError from '@src/components/common/ViewError';
 import ViewLoading from '@src/components/common/ViewLoading';
 import IconAdd from '@src/components/icons/IconAdd';
+import IconArrowChevron from '@src/components/icons/IconArrowChevron';
 import IconBin from '@src/components/icons/IconBin';
 import Seo from '@src/components/Seo';
 import Container from '@src/components/styled/Container';
@@ -39,6 +40,7 @@ import {
     Field,
     FieldDivider,
     FieldHeader,
+    FieldIcons,
     PreviewView,
     Wrapper
 } from './styles';
@@ -80,7 +82,7 @@ const EditFormTemplate: NextPage = () => {
 
     const { watch, reset, control, register, handleSubmit } = methods;
 
-    const { fields, remove, append } = useFieldArray({
+    const { fields, remove, append, swap } = useFieldArray({
         name: 'fields',
         control
     });
@@ -182,51 +184,95 @@ const EditFormTemplate: NextPage = () => {
                                 <FormProvider {...methods}>
                                     {fields
                                         .filter((field) => field)
-                                        .map((field, index) => (
-                                            <div key={field.id}>
-                                                <FieldHeader>
-                                                    <Heading level={3}>
-                                                        Pregunta {index + 1}
-                                                    </Heading>
-                                                    <IconBin
-                                                        onClick={removeField(
-                                                            index
-                                                        )}
-                                                    />
-                                                </FieldHeader>
-                                                <Field>
-                                                    <EditableView>
-                                                        <EditableFormField
-                                                            name={`fields[${index}]`}
-                                                            field={field}
-                                                            isCheck={
-                                                                watched
-                                                                    ? watched[
-                                                                          index
-                                                                      ].type ===
-                                                                      'check'
-                                                                    : false
-                                                            }
-                                                        />
-                                                    </EditableView>
-                                                    <PreviewView>
-                                                        <Heading level={6}>
-                                                            Vista previa
-                                                        </Heading>
-                                                        <FormField
-                                                            field={
-                                                                watched
-                                                                    ? watched[
-                                                                          index
-                                                                      ]
-                                                                    : undefined
-                                                            }
-                                                        />
-                                                    </PreviewView>
-                                                </Field>
-                                                <FieldDivider />
-                                            </div>
-                                        ))}
+                                        .map((field, index) => {
+                                            const canSwapUp = index !== 0;
+                                            const canSwapDown =
+                                                index < fields.length - 1;
+
+                                            return (
+                                                <div key={field.id}>
+                                                    <Field>
+                                                        <EditableView>
+                                                            <FieldHeader>
+                                                                <Heading
+                                                                    level={3}
+                                                                >
+                                                                    Pregunta{' '}
+                                                                    {index + 1}
+                                                                </Heading>
+                                                                <FieldIcons>
+                                                                    {canSwapUp && (
+                                                                        <IconArrowChevron
+                                                                            direction="up"
+                                                                            onClick={
+                                                                                canSwapUp
+                                                                                    ? () => {
+                                                                                          swap(
+                                                                                              index,
+                                                                                              index -
+                                                                                                  1
+                                                                                          );
+                                                                                      }
+                                                                                    : undefined
+                                                                            }
+                                                                        />
+                                                                    )}
+                                                                    {canSwapDown && (
+                                                                        <IconArrowChevron
+                                                                            direction="down"
+                                                                            onClick={
+                                                                                canSwapDown
+                                                                                    ? () => {
+                                                                                          swap(
+                                                                                              index,
+                                                                                              index +
+                                                                                                  1
+                                                                                          );
+                                                                                      }
+                                                                                    : undefined
+                                                                            }
+                                                                        />
+                                                                    )}
+                                                                    <IconBin
+                                                                        onClick={removeField(
+                                                                            index
+                                                                        )}
+                                                                    />
+                                                                </FieldIcons>
+                                                            </FieldHeader>
+                                                            <EditableFormField
+                                                                name={`fields[${index}]`}
+                                                                field={field}
+                                                                isCheck={
+                                                                    watched
+                                                                        ? watched[
+                                                                              index
+                                                                          ]
+                                                                              .type ===
+                                                                          'check'
+                                                                        : false
+                                                                }
+                                                            />
+                                                        </EditableView>
+                                                        <PreviewView>
+                                                            <Heading level={6}>
+                                                                Vista previa
+                                                            </Heading>
+                                                            <FormField
+                                                                field={
+                                                                    watched
+                                                                        ? watched[
+                                                                              index
+                                                                          ]
+                                                                        : undefined
+                                                                }
+                                                            />
+                                                        </PreviewView>
+                                                    </Field>
+                                                    <FieldDivider />
+                                                </div>
+                                            );
+                                        })}
                                 </FormProvider>
                                 <AddField>
                                     <IconAdd onClick={addField} />

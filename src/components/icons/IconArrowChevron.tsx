@@ -14,9 +14,9 @@ const IconArrowChevron: React.FC<Props & HTMLAttributes<SVGElement>> = ({
     const rotation = ((): number => {
         switch (direction) {
             case 'up':
-                return 90;
-            case 'down':
                 return 270;
+            case 'down':
+                return 90;
             case 'right':
                 return 0;
             case 'left':
@@ -29,6 +29,7 @@ const IconArrowChevron: React.FC<Props & HTMLAttributes<SVGElement>> = ({
     return (
         <svg
             {...props}
+            className="IconArrowChevron"
             width="24"
             height="44"
             viewBox="0 0 24 44"
