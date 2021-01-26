@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
@@ -29,9 +30,7 @@ import {
     FormQueryVariables
 } from '@src/graphql/query/form.query';
 import { trackException } from '@src/utils/analytics';
-import EditableFormField from '@src/views/admin/EditableFormField';
 import EditFormHeader from '@src/views/admin/EditFormHeader';
-import FormField from '@src/views/form/FormField';
 
 import {
     AddField,
@@ -44,6 +43,19 @@ import {
     PreviewView,
     Wrapper
 } from './styles';
+
+const EditableFormField = dynamic(
+    () => import('@src/views/admin/EditableFormField'),
+    {
+        loading: () => <ViewLoading />,
+        ssr: false
+    }
+);
+
+const FormField = dynamic(() => import('@src/views/form/FormField'), {
+    loading: () => <ViewLoading />,
+    ssr: false
+});
 
 const defaultField = {
     title: '',

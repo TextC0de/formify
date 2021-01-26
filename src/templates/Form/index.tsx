@@ -26,11 +26,15 @@ import {
 } from '@src/graphql/query/form.query';
 import { trackException } from '@src/utils/analytics';
 import { getFormWasSubmited, setFormAsSubmited } from '@src/utils/form';
-import FormField from '@src/views/form/FormField';
 
 import { Slide, StartEndSlide, StartEndTitle, Wrapper } from './styles';
 
 const SwiperCustom = dynamic(() => import('@src/components/SwiperCustom'), {
+    loading: () => <ViewLoading />,
+    ssr: false
+});
+
+const FormField = dynamic(() => import('@src/views/form/FormField'), {
     loading: () => <ViewLoading />,
     ssr: false
 });
