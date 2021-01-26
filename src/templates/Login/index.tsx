@@ -22,6 +22,7 @@ import {
     UserLoginData,
     UserLoginVariables
 } from '@src/graphql/mutation/user.login';
+import { trackLogin } from '@src/utils/analytics';
 import { setToken } from '@src/utils/auth';
 
 import { Wrapper } from './styles';
@@ -53,6 +54,7 @@ const LoginTemplate: NextPage = () => {
                     appearance: 'error'
                 });
             } else {
+                trackLogin({ method: 'Web' });
                 setToken(result.data?.login.accessToken);
                 router.push('/admin');
             }

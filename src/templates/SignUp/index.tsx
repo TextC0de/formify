@@ -23,6 +23,7 @@ import {
     UserSignUpData,
     UserSignUpVariables
 } from '@src/graphql/mutation/user.signup';
+import { trackSignup } from '@src/utils/analytics';
 import { setToken } from '@src/utils/auth';
 
 import { Wrapper } from './styles';
@@ -60,6 +61,7 @@ const SignUpTemplate: NextPage = () => {
                     }
                 );
             } else {
+                trackSignup({ method: 'Web' });
                 setToken(result.data?.signup.accessToken);
                 router.push('/admin');
             }
