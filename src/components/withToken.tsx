@@ -20,8 +20,7 @@ const withToken = (
 
         const [result] = useQuery<MeQueryData>({
             query: ME_QUERY,
-            requestPolicy: 'network-only',
-            pause: !tokenMustExist
+            requestPolicy: 'network-only'
         });
 
         useEffect(() => {
@@ -35,15 +34,6 @@ const withToken = (
                     <ViewLoading fullPage />
                 </main>
             );
-        }
-
-        // the token shouldn't exist and it doesn't
-        // or the token exists and the user is valid
-        if (
-            (!getToken() && !tokenMustExist) ||
-            (result.data && tokenMustExist)
-        ) {
-            return <Component {...props} />;
         }
 
         // the token should exist, redirect to login
@@ -70,7 +60,9 @@ const withToken = (
             );
         }
 
-        if (result.data) {
+        // the user shouldn't be auth but it does
+        // redirect to admin
+        if (result.data && !tokenMustExist) {
             router.push('/admin');
 
             return (
@@ -79,11 +71,19 @@ const withToken = (
                     <ViewLoading fullPage />
                 </main>
             );
-        } else {
+        }
+
+        // the user should be auth but it doesn't
+        // redirect to login
+        if (!result.data && tokenMustExist) {
             deleteToken();
             router.push('/login?denied=true');
             return <ViewLoading />;
         }
+
+        // the token shouldn't exist and it doesn't
+        // or the token exists and the user is valid
+        return <Component {...props} />;
     };
 
     return MyComp;
